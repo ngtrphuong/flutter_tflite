@@ -587,7 +587,7 @@ public class TflitePlugin implements MethodCallHandler {
 
     ByteBuffer imgData = feedInputTensorImage(path, IMAGE_MEAN, IMAGE_STD);
 
-    if (model.equals("SSDMobileNet")) {
+    if ("SSDMobileNet".equals(model)) {
       new RunSSDMobileNet(args, imgData, NUM_RESULTS_PER_CLASS, THRESHOLD, result).executeTfliteTask();
     } else {
       new RunYOLO(args, imgData, BLOCK_SIZE, NUM_BOXES_PER_BLOCK, ANCHORS, THRESHOLD, NUM_RESULTS_PER_CLASS, result).executeTfliteTask();
@@ -606,7 +606,7 @@ public class TflitePlugin implements MethodCallHandler {
 
     ByteBuffer imgData = ByteBuffer.wrap(binary);
 
-    if (model.equals("SSDMobileNet")) {
+    if ("SSDMobileNet".equals(model)) {
       new RunSSDMobileNet(args, imgData, NUM_RESULTS_PER_CLASS, THRESHOLD, result).executeTfliteTask();
     } else {
       new RunYOLO(args, imgData, BLOCK_SIZE, NUM_BOXES_PER_BLOCK, ANCHORS, THRESHOLD, NUM_RESULTS_PER_CLASS, result).executeTfliteTask();
@@ -633,7 +633,7 @@ public class TflitePlugin implements MethodCallHandler {
 
     ByteBuffer imgData = feedInputTensorFrame(bytesList, imageHeight, imageWidth, IMAGE_MEAN, IMAGE_STD, rotation);
 
-    if (model.equals("SSDMobileNet")) {
+    if ("SSDMobileNet".equals(model)) {
       new RunSSDMobileNet(args, imgData, NUM_RESULTS_PER_CLASS, THRESHOLD, result).executeTfliteTask();
     } else {
       new RunYOLO(args, imgData, BLOCK_SIZE, NUM_BOXES_PER_BLOCK, ANCHORS, THRESHOLD, NUM_RESULTS_PER_CLASS, result).executeTfliteTask();
@@ -888,7 +888,7 @@ public class TflitePlugin implements MethodCallHandler {
       output.flip();
       Bitmap bitmapRaw = feedOutput(output, IMAGE_MEAN, IMAGE_STD);
 
-      if (outputType.equals("png")) {
+      if ("png".equals(outputType)) {
         result.success(compressPNG(bitmapRaw));
       } else {
         result.success(bitmapRaw);
@@ -983,7 +983,7 @@ public class TflitePlugin implements MethodCallHandler {
       output.flip();
       Bitmap bitmapRaw = feedOutput(output, IMAGE_MEAN, IMAGE_STD);
 
-      if (outputType.equals("png")) {
+      if ("png".equals(outputType)) {
         result.success(compressPNG(bitmapRaw));
       } else {
         result.success(bitmapRaw);
@@ -1134,7 +1134,7 @@ public class TflitePlugin implements MethodCallHandler {
 
     Bitmap outputArgmax = null;
     byte[] outputBytes = new byte[outputWidth * outputHeight * 4];
-    if (outputType.equals("png")) {
+    if ("png".equals(outputType)) {
       outputArgmax = Bitmap.createBitmap(outputWidth, outputHeight, Bitmap.Config.ARGB_8888);
     }
 
@@ -1151,7 +1151,7 @@ public class TflitePlugin implements MethodCallHandler {
             }
           }
           int labelColor = labelColors.get(maxIndex).intValue();
-          if (outputType.equals("png")) {
+          if ("png".equals(outputType)) {
             outputArgmax.setPixel(j, i, labelColor);
           } else {
             setPixel(outputBytes, i * outputWidth + j, labelColor);
@@ -1171,7 +1171,7 @@ public class TflitePlugin implements MethodCallHandler {
             }
           }
           int labelColor = labelColors.get(maxIndex).intValue();
-          if (outputType.equals("png")) {
+          if ("png".equals(outputType)) {
             outputArgmax.setPixel(j, i, labelColor);
           } else {
             setPixel(outputBytes, i * outputWidth + j, labelColor);
@@ -1179,7 +1179,7 @@ public class TflitePlugin implements MethodCallHandler {
         }
       }
     }
-    if (outputType.equals("png")) {
+    if ("png".equals(outputType)) {
       return compressPNG(outputArgmax);
     } else {
       return outputBytes;
