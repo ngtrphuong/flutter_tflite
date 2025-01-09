@@ -24,6 +24,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.github.pixee.security.BoundedLineReader;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
@@ -258,7 +259,7 @@ public class TflitePlugin implements MethodCallHandler {
       }
       String line;
       labels = new Vector<>();
-      while ((line = br.readLine()) != null) {
+      while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
         labels.add(line);
       }
       labelProb = new float[1][labels.size()];
